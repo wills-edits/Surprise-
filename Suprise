@@ -1,0 +1,2524 @@
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
+  <title>The Tale of Two Strangers</title>
+
+  <meta
+    name="description"
+    content="A private love story written for one person."
+  />
+
+  <!-- =====================================================
+       TAILWIND
+  ====================================================== -->
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ["Cormorant Garamond", "serif"],
+            sans: ["Inter", "sans-serif"]
+          },
+
+          colors: {
+            ink: "#f8eef3",
+            paper: "#100b10",
+            wine: "#ec4899",
+            muted: "#aaa0a7"
+          },
+
+          boxShadow: {
+            soft: "0 24px 80px rgba(0,0,0,.35)"
+          }
+        }
+      }
+    };
+  </script>
+
+
+  <!-- =====================================================
+       GOOGLE FONTS
+  ====================================================== -->
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
+    rel="stylesheet"
+  >
+
+
+  <!-- =====================================================
+       FONT AWESOME
+  ====================================================== -->
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+  >
+
+
+  <!-- =====================================================
+       CUSTOM CSS
+  ====================================================== -->
+
+  <style>
+
+    /* =====================================================
+       GLOBAL
+    ====================================================== */
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+
+      min-height: 100vh;
+
+      background:
+        radial-gradient(
+          circle at 15% 10%,
+          rgba(236, 72, 153, .14),
+          transparent 28%
+        ),
+
+        radial-gradient(
+          circle at 85% 30%,
+          rgba(190, 24, 93, .12),
+          transparent 30%
+        ),
+
+        radial-gradient(
+          circle at 50% 90%,
+          rgba(244, 63, 94, .08),
+          transparent 35%
+        ),
+
+        #100b10;
+
+      color: #f8eef3;
+
+      overflow-x: hidden;
+    }
+
+
+    /* =====================================================
+       STORY LOCK
+       
+       IMPORTANT:
+       The entire main content is removed from layout
+       until the user presses Begin The Story.
+    ====================================================== */
+
+    body.story-locked main {
+      display: none !important;
+    }
+
+    body.story-locked #storyHeader {
+      display: none !important;
+    }
+
+    body.story-started main {
+      display: block;
+
+      animation:
+        storyReveal
+        1s
+        cubic-bezier(.2, .8, .2, 1)
+        forwards;
+    }
+
+    @keyframes storyReveal {
+
+      from {
+        opacity: 0;
+        transform: translateY(28px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+    }
+
+
+    /* =====================================================
+       GRAIN
+    ====================================================== */
+
+    .grain {
+      position: fixed;
+
+      inset: 0;
+
+      pointer-events: none;
+
+      opacity: .035;
+
+      z-index: 60;
+
+      background-image:
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.7'/%3E%3C/svg%3E");
+    }
+
+
+    /* =====================================================
+       FLOATING HEARTS
+    ====================================================== */
+
+    .romantic-bg {
+      position: fixed;
+
+      inset: 0;
+
+      overflow: hidden;
+
+      pointer-events: none;
+
+      z-index: 0;
+    }
+
+
+    .heart {
+      position: absolute;
+
+      bottom: -120px;
+
+      color: rgba(
+        244,
+        114,
+        182,
+        .17
+      );
+
+      filter:
+        blur(5px)
+        drop-shadow(
+          0 0 25px
+          rgba(
+            236,
+            72,
+            153,
+            .28
+          )
+        );
+
+      animation:
+        floatHeart
+        linear
+        infinite;
+
+      will-change:
+        transform,
+        opacity;
+
+      opacity: 0;
+    }
+
+
+    .heart i {
+      font-size: 42px;
+    }
+
+
+    .heart-1 {
+      left: 7%;
+      animation-duration: 17s;
+      animation-delay: -4s;
+    }
+
+    .heart-1 i {
+      font-size: 34px;
+    }
+
+
+    .heart-2 {
+      left: 19%;
+      animation-duration: 23s;
+      animation-delay: -15s;
+    }
+
+    .heart-2 i {
+      font-size: 58px;
+    }
+
+
+    .heart-3 {
+      left: 34%;
+      animation-duration: 19s;
+      animation-delay: -8s;
+    }
+
+    .heart-3 i {
+      font-size: 26px;
+    }
+
+
+    .heart-4 {
+      left: 48%;
+      animation-duration: 26s;
+      animation-delay: -19s;
+    }
+
+    .heart-4 i {
+      font-size: 72px;
+    }
+
+
+    .heart-5 {
+      left: 63%;
+      animation-duration: 21s;
+      animation-delay: -12s;
+    }
+
+    .heart-5 i {
+      font-size: 38px;
+    }
+
+
+    .heart-6 {
+      left: 75%;
+      animation-duration: 24s;
+      animation-delay: -5s;
+    }
+
+    .heart-6 i {
+      font-size: 62px;
+    }
+
+
+    .heart-7 {
+      left: 87%;
+      animation-duration: 18s;
+      animation-delay: -11s;
+    }
+
+    .heart-7 i {
+      font-size: 30px;
+    }
+
+
+    .heart-8 {
+      left: 94%;
+      animation-duration: 28s;
+      animation-delay: -22s;
+    }
+
+    .heart-8 i {
+      font-size: 48px;
+    }
+
+
+    @keyframes floatHeart {
+
+      0% {
+
+        transform:
+          translate3d(0, 0, 0)
+          rotate(-8deg)
+          scale(.75);
+
+        opacity: 0;
+      }
+
+
+      8% {
+        opacity: .5;
+      }
+
+
+      25% {
+
+        transform:
+          translate3d(-25px, -25vh, 0)
+          rotate(8deg)
+          scale(1);
+      }
+
+
+      50% {
+
+        transform:
+          translate3d(28px, -52vh, 0)
+          rotate(-5deg)
+          scale(.9);
+      }
+
+
+      75% {
+
+        transform:
+          translate3d(-20px, -78vh, 0)
+          rotate(10deg)
+          scale(1.08);
+      }
+
+
+      92% {
+        opacity: .35;
+      }
+
+
+      100% {
+
+        transform:
+          translate3d(30px, -120vh, 0)
+          rotate(-10deg)
+          scale(.7);
+
+        opacity: 0;
+      }
+
+    }
+
+
+    /* =====================================================
+       CONTENT LAYER
+    ====================================================== */
+
+    main,
+    header,
+    #opening,
+    .modal {
+      position: relative;
+
+      z-index: 2;
+    }
+
+
+    /* =====================================================
+       HERO
+    ====================================================== */
+
+    .hero-title {
+
+      letter-spacing: -.045em;
+
+      line-height: .9;
+
+      color: #fff4f8;
+    }
+
+
+    /* =====================================================
+       STORY TYPOGRAPHY
+    ====================================================== */
+
+    .story p {
+
+      font-family:
+        "Cormorant Garamond",
+        serif;
+
+      font-size:
+        clamp(
+          1.28rem,
+          2.2vw,
+          1.65rem
+        );
+
+      line-height: 1.72;
+
+      color:
+        rgba(
+          248,
+          238,
+          243,
+          .78
+        );
+
+      margin-bottom: 1.75rem;
+    }
+
+
+    .story p.emphasis {
+
+      color: #f472b6;
+
+      font-weight: 600;
+
+      font-size:
+        clamp(
+          1.45rem,
+          2.6vw,
+          1.9rem
+        );
+    }
+
+
+    .story strong {
+      color: #f9a8d4;
+    }
+
+
+    .story em {
+
+      color:
+        rgba(
+          255,
+          255,
+          255,
+          .92
+        );
+    }
+
+
+    .chapter {
+
+      border-top:
+        1px solid
+        rgba(
+          255,
+          255,
+          255,
+          .10
+        );
+
+      padding-top: 2.2rem;
+
+      margin-top: 4.5rem;
+    }
+
+
+    /* =====================================================
+       REVEAL ANIMATION
+    ====================================================== */
+
+    .reveal {
+
+      opacity: 0;
+
+      transform:
+        translateY(28px);
+
+      transition:
+        opacity
+        900ms
+        cubic-bezier(.2,.8,.2,1),
+
+        transform
+        900ms
+        cubic-bezier(.2,.8,.2,1);
+    }
+
+
+    .reveal.visible {
+
+      opacity: 1;
+
+      transform:
+        translateY(0);
+    }
+
+
+    .line {
+
+      transform:
+        scaleX(0);
+
+      transform-origin: left;
+
+      transition:
+        transform
+        1.2s
+        cubic-bezier(.2,.8,.2,1);
+    }
+
+
+    .line.visible {
+
+      transform:
+        scaleX(1);
+    }
+
+
+    /* =====================================================
+       OPENING SCREEN
+    ====================================================== */
+
+    .veil {
+
+      transition:
+        opacity .8s ease,
+        visibility .8s ease;
+    }
+
+
+    .veil.hidden {
+
+      opacity: 0 !important;
+
+      visibility: hidden !important;
+
+      pointer-events: none !important;
+    }
+
+
+    /* =====================================================
+       HEADER
+    ====================================================== */
+
+    #storyHeader {
+
+      position: fixed;
+
+      top: 0;
+
+      left: 0;
+
+      right: 0;
+
+      z-index: 40;
+
+      opacity: 0;
+
+      visibility: hidden;
+
+      transform:
+        translateY(-12px);
+
+      transition:
+        opacity .6s ease,
+        visibility .6s ease,
+        transform .6s ease;
+    }
+
+
+    #storyHeader.active {
+
+      opacity: 1;
+
+      visibility: visible;
+
+      transform:
+        translateY(0);
+    }
+
+
+    header button {
+
+      background:
+        rgba(
+          255,
+          255,
+          255,
+          .045
+        ) !important;
+
+      border-color:
+        rgba(
+          255,
+          255,
+          255,
+          .10
+        ) !important;
+
+      color:
+        rgba(
+          255,
+          255,
+          255,
+          .75
+        );
+    }
+
+
+    header button:hover {
+
+      background:
+        rgba(
+          255,
+          255,
+          255,
+          .10
+        ) !important;
+
+      color: #fff;
+    }
+
+
+    /* =====================================================
+       PROGRESS
+    ====================================================== */
+
+    .progress {
+
+      transition:
+        width
+        120ms
+        linear;
+    }
+
+
+    /* =====================================================
+       REVEAL CARD
+    ====================================================== */
+
+    .story section.rounded-2xl {
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(
+            255,
+            255,
+            255,
+            .055
+          ),
+
+          rgba(
+            255,
+            255,
+            255,
+            .018
+          )
+        ) !important;
+
+      border-color:
+        rgba(
+          255,
+          255,
+          255,
+          .10
+        ) !important;
+
+      box-shadow:
+
+        0 30px 100px
+        rgba(
+          0,
+          0,
+          0,
+          .35
+        ),
+
+        inset 0 1px 0
+        rgba(
+          255,
+          255,
+          255,
+          .05
+        );
+
+      backdrop-filter:
+        blur(18px);
+
+      -webkit-backdrop-filter:
+        blur(18px);
+    }
+
+
+    /* =====================================================
+       PINK
+    ====================================================== */
+
+    .text-wine {
+
+      color:
+        #f472b6 !important;
+    }
+
+
+    .bg-wine {
+
+      background:
+        linear-gradient(
+          90deg,
+          #be185d,
+          #ec4899,
+          #f472b6,
+          #fb7185
+        ) !important;
+
+      box-shadow:
+        0 0 15px
+        rgba(
+          244,
+          114,
+          182,
+          .5
+        );
+    }
+
+
+    /* =====================================================
+       MODAL
+    ====================================================== */
+
+    #modalBackdrop {
+
+      position: fixed;
+
+      inset: 0;
+
+      z-index: 70;
+
+      opacity: 0;
+
+      visibility: hidden;
+
+      pointer-events: none;
+
+      transition:
+        opacity .45s ease,
+        visibility .45s ease;
+    }
+
+
+    #modalBackdrop.open {
+
+      opacity: 1;
+
+      visibility: visible;
+
+      pointer-events: auto;
+    }
+
+
+    #modalBackdrop > div {
+
+      background:
+        linear-gradient(
+          145deg,
+          #1c1119,
+          #120c11
+        ) !important;
+
+      border:
+        1px solid
+        rgba(
+          255,
+          255,
+          255,
+          .10
+        );
+
+      box-shadow:
+        0 40px 120px
+        rgba(
+          0,
+          0,
+          0,
+          .65
+        );
+
+      transform:
+        translateY(18px)
+        scale(.98);
+
+      transition:
+        transform .45s
+        cubic-bezier(.2,.8,.2,1);
+    }
+
+
+    #modalBackdrop.open > div {
+
+      transform:
+        translateY(0)
+        scale(1);
+    }
+
+
+    #modalBackdrop h2 {
+
+      color:
+        #fff1f6;
+    }
+
+
+    #modalBackdrop p {
+
+      color:
+        rgba(
+          248,
+          238,
+          243,
+          .65
+        );
+    }
+
+
+    #modalBackdrop button {
+
+      border-color:
+        rgba(
+          255,
+          255,
+          255,
+          .10
+        );
+
+      color:
+        rgba(
+          255,
+          255,
+          255,
+          .75
+        );
+    }
+
+
+    #modalBackdrop button:hover {
+
+      background:
+        #f472b6;
+
+      color:
+        #160d12;
+    }
+
+
+    /* =====================================================
+       SELECTION
+    ====================================================== */
+
+    ::selection {
+
+      background:
+        #ec4899;
+
+      color:
+        white;
+    }
+
+
+    /* =====================================================
+       MOBILE
+    ====================================================== */
+
+    @media (max-width: 640px) {
+
+      .story p {
+
+        font-size:
+          1.25rem;
+
+        line-height:
+          1.68;
+      }
+
+
+      .heart {
+
+        filter:
+          blur(6px)
+          drop-shadow(
+            0 0 18px
+            rgba(
+              236,
+              72,
+              153,
+              .2
+            )
+          );
+      }
+
+
+      .heart i {
+
+        font-size:
+          30px;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<!-- =====================================================
+     BODY
+     
+     STORY IS LOCKED BY DEFAULT
+====================================================== -->
+
+<body class="min-h-screen antialiased story-locked">
+
+
+  <!-- =====================================================
+       FLOATING HEARTS
+  ====================================================== -->
+
+  <div
+    class="romantic-bg"
+    aria-hidden="true"
+  >
+
+    <div class="heart heart-1">
+      <i class="fa-solid fa-heart"></i>
+    </div>
+
+    <div class="heart heart-2">
+      <i class="fa-solid fa-heart"></i>
+    </div>
+
+    <div class="heart heart-3">
+      <i class="fa-solid fa-heart"></i>
+    </div>
+
+    <div class="heart heart-4">
+      <i class="fa-solid fa-heart"></i>
+    </div>
+
+    <div class="heart heart-5">
+      <i class="fa-solid fa-heart"></i>
+    </div>
+
+    <div class="heart heart-6">
+      <i class="fa-solid fa-heart"></i>
+    </div>
+
+    <div class="heart heart-7">
+      <i class="fa-solid fa-heart"></i>
+    </div>
+
+    <div class="heart heart-8">
+      <i class="fa-solid fa-heart"></i>
+    </div>
+
+  </div>
+
+
+  <!-- =====================================================
+       GRAIN
+  ====================================================== -->
+
+  <div class="grain"></div>
+
+
+  <!-- =====================================================
+       OPENING SCREEN
+  ====================================================== -->
+
+  <section
+    id="opening"
+    class="veil fixed inset-0 z-50 flex items-center justify-center bg-[#100b10] text-white px-6"
+  >
+
+    <div class="max-w-2xl text-center">
+
+      <p
+        class="font-sans text-[10px] tracking-[.38em] uppercase text-white/45 mb-8"
+      >
+        A story written for one person
+      </p>
+
+
+      <h1
+        class="hero-title font-display text-[clamp(4rem,13vw,9rem)] font-medium"
+      >
+        The Tale<br>
+        of Two Strangers
+      </h1>
+
+
+      <div
+        class="line mx-auto mt-9 h-px w-24 bg-pink-300/40"
+      ></div>
+
+
+      <p
+        class="mt-8 max-w-md mx-auto font-sans text-sm leading-7 text-white/55"
+      >
+        Some stories begin with a plan.
+        Others begin by accident.
+      </p>
+
+
+      <button
+        id="beginBtn"
+        class="mt-10 group inline-flex items-center gap-3 border border-white/20 px-6 py-3 font-sans text-xs tracking-[.2em] uppercase transition hover:bg-white hover:text-[#171717]"
+      >
+
+        Begin the story
+
+        <i
+          class="fa-solid fa-arrow-right text-[10px] transition-transform group-hover:translate-x-1"
+        ></i>
+
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <!-- =====================================================
+       HEADER
+  ====================================================== -->
+
+  <header id="storyHeader">
+
+    <div
+      class="mx-auto flex max-w-7xl items-center justify-between px-5 py-5 md:px-10"
+    >
+
+      <span
+        class="font-sans text-[10px] tracking-[.28em] uppercase text-white/40"
+      >
+        A private tale
+      </span>
+
+
+      <div class="flex items-center gap-2">
+
+        <button
+          id="musicBtn"
+          aria-label="Toggle ambient sound"
+          class="h-10 w-10 rounded-full border backdrop-blur-md transition"
+        >
+
+          <i
+            id="musicIcon"
+            class="fa-solid fa-volume-xmark text-xs"
+          ></i>
+
+        </button>
+
+
+        <button
+          id="aboutBtn"
+          aria-label="Open story note"
+          class="h-10 w-10 rounded-full border backdrop-blur-md transition"
+        >
+
+          <i
+            class="fa-solid fa-info text-xs"
+          ></i>
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </header>
+
+
+  <!-- =====================================================
+       PROGRESS BAR
+  ====================================================== -->
+
+  <div
+    class="fixed left-0 top-0 z-50 h-[2px] w-full bg-white/5"
+  >
+
+    <div
+      id="progress"
+      class="progress h-full w-0 bg-wine"
+    ></div>
+
+  </div>
+
+
+  <!-- =====================================================
+       MAIN STORY
+       
+       THIS ENTIRE SECTION IS HIDDEN UNTIL BEGIN IS CLICKED
+  ====================================================== -->
+
+  <main>
+
+
+    <!-- ===================================================
+         HERO
+    ==================================================== -->
+
+    <section
+      class="min-h-screen flex items-center px-6 pt-24 pb-20"
+    >
+
+      <div
+        class="mx-auto w-full max-w-6xl"
+      >
+
+        <div class="max-w-4xl reveal">
+
+          <p
+            class="font-sans text-[10px] tracking-[.36em] uppercase text-wine mb-8"
+          >
+            A love story
+          </p>
+
+
+          <h1
+            class="hero-title font-display text-[clamp(4.5rem,13vw,10.5rem)] font-medium"
+          >
+            The Tale<br>
+            of Two Strangers
+          </h1>
+
+
+          <div class="mt-12 flex items-center gap-5">
+
+            <span
+              class="h-px w-16 bg-pink-400"
+            ></span>
+
+            <span
+              class="font-sans text-xs tracking-[.18em] uppercase text-white/40"
+            >
+              Read slowly
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <div
+          class="mt-24 grid grid-cols-1 md:grid-cols-12 gap-8 reveal"
+        >
+
+          <div
+            class="md:col-span-5 md:col-start-7"
+          >
+
+            <p
+              class="font-display text-2xl md:text-3xl leading-relaxed text-white/65"
+            >
+              Once upon a time, in a land not so different from ours,
+              there lived a young girl and a young boy.
+            </p>
+
+
+            <button
+              onclick="scrollToStory()"
+              class="mt-8 inline-flex items-center gap-3 font-sans text-xs tracking-[.2em] uppercase text-wine"
+            >
+
+              Continue
+
+              <i
+                class="fa-solid fa-arrow-down text-[9px]"
+              ></i>
+
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ===================================================
+         STORY
+    ==================================================== -->
+
+    <article
+      id="story"
+      class="story mx-auto max-w-3xl px-6 pb-40"
+    >
+
+
+      <div class="chapter reveal">
+
+        <p>
+          They were strangers.
+        </p>
+
+        <p>
+          They had never met.
+        </p>
+
+        <p>
+          They had never heard each other's voices.
+        </p>
+
+        <p>
+          They knew nothing about one another.
+        </p>
+
+        <p>
+          Yet, somehow, life had already decided
+          that their paths would cross.
+        </p>
+
+      </div>
+
+
+      <div class="chapter reveal">
+
+        <p>
+          The girl was beautiful,
+          but what made her special wasn't only her beauty.
+        </p>
+
+        <p>
+          She had a heart that could love deeply,
+          even though she loved to distance herself from people.
+        </p>
+
+        <p>
+          The boy was different.
+        </p>
+
+        <p>
+          He wasn't the type who easily explained
+          what was happening inside him.
+        </p>
+
+        <p>
+          He could be quiet when he had a thousand things on his mind.
+        </p>
+
+        <p>
+          He could seem unbothered when,
+          deep down, he cared more than he wanted anyone to know.
+        </p>
+
+        <p>
+          He had learned to carry his problems quietly.
+        </p>
+
+      </div>
+
+
+      <div class="chapter reveal">
+
+        <p>
+          Then, one ordinary day,
+          something unexpected happened.
+        </p>
+
+        <p>
+          Two strangers found each other at a not really random spwan point,
+          Random hellos and checkups turned into routines .
+        </p>
+
+        <p>
+          Neither expected it to be this big.
+        </p>
+
+        <p>
+          But it became big.
+        </p>
+
+      </div>
+
+
+      <div class="chapter reveal">
+
+        <p>
+          At first, they were simply two people talking.
+        </p>
+
+        <p>
+          Then the conversations became something
+          they looked forward to.
+        </p>
+
+        <p>
+          Slowly, the stranger became familiar.
+        </p>
+
+        <p>
+          The familiar became important.
+        </p>
+
+        <p>
+          And the important became someone neither wanted to lose.
+        </p>
+
+      </div>
+
+
+      <div class="chapter reveal">
+
+        <p>
+          But love is rarely a straight road.
+        </p>
+
+        <p>
+          There were moments when the girl wondered about the boy.
+        </p>
+
+        <p class="emphasis">
+          “Why does he act like he doesn't care?”
+        </p>
+
+        <p class="emphasis">
+          “Why can he be so distant sometimes?”
+        </p>
+
+        <p class="emphasis">
+          “Why doesn't he just tell me what he's feeling?”
+        </p>
+
+        <p>
+          And perhaps those questions were fair.
+        </p>
+
+        <p>
+          Because the boy sometimes forgot
+          that silence can be misunderstood.
+        </p>
+
+        <p>
+          He sometimes forgot that when you love someone,
+          they cannot always see the battles
+          you're fighting inside your head.
+        </p>
+
+      </div>
+
+
+      <div class="chapter reveal">
+
+        <p>
+          There were things he was dealing with.
+        </p>
+
+        <p>
+          Things he couldn't always explain.
+        </p>
+
+        <p>
+          Things his personality made him keep hidden.
+        </p>
+
+        <p>
+          He wasn't trying to punish her with silence.
+        </p>
+
+        <p>
+          He wasn't trying to make her feel unwanted.
+        </p>
+
+        <p>
+          He simply didn't know how to open
+          every locked door inside himself.
+        </p>
+
+      </div>
+
+
+      <div class="chapter reveal">
+
+        <p>
+          And yet, despite all of that...
+        </p>
+
+        <p class="emphasis">
+          He loved her.
+        </p>
+
+        <p>
+          Quietly (sometimes loudly ... maybe too loud)
+        </p>
+
+        <p>
+          Deeply.
+        </p>
+
+        <p>
+          In ways he didn't always know how to put into words.
+        </p>
+
+        <p>
+          He loved the way she could make ordinary
+          conversations feel important.
+        </p>
+
+        <p>
+          He loved the way she could frustrate him
+          and still be the person he wanted to talk to.
+        </p>
+
+        <p>
+          He loved the fact that, somehow,
+          she had become part of his everyday thoughts.
+        </p>
+
+        <p>
+          And perhaps she didn't always realize it,
+          but she had become one of the few people capable
+          of reaching a heart that usually kept everyone at a distance.
+        </p>
+
+      </div>
+
+
+      <div class="chapter reveal">
+
+        <p>
+          Their story wasn't perfect.
+        </p>
+
+        <p>
+          They misunderstood each other.
+        </p>
+
+        <p>
+          They annoyed each other.
+        </p>
+
+        <p>
+          Sometimes they probably wondered
+          whether they were doing this love thing correctly.
+        </p>
+
+        <p>
+          But every time they could have walked away...
+        </p>
+
+        <p class="emphasis">
+          They stayed.
+        </p>
+
+        <p>
+          And maybe that was the most beautiful part of their story.
+        </p>
+
+      </div>
+
+
+      <div class="chapter reveal">
+
+        <p>
+          Because love isn't always about finding
+          someone who never hurts you.
+        </p>
+
+        <p>
+          Sometimes it's finding someone worth understanding.
+        </p>
+
+        <p>
+          Someone worth being patient with.
+        </p>
+
+        <p>
+          Someone worth growing with.
+        </p>
+
+        <p>
+          Someone you choose even after you've seen their imperfections.
+        </p>
+
+      </div>
+
+
+      <div class="chapter reveal">
+
+        <p>
+          And somewhere along the journey,
+          the boy realized something.
+        </p>
+
+        <p>
+          He wasn't talking to a stranger anymore.
+        </p>
+
+        <p>
+          He was talking to someone who had slowly become a part of him.
+        </p>
+
+        <p>
+          Someone whose happiness mattered.
+        </p>
+
+        <p>
+          Someone whose absence would hurt.
+        </p>
+
+        <p>
+          Someone he wanted beside him,
+          even on the days when he didn't know how to say it.
+        </p>
+
+      </div>
+
+
+      <div class="chapter reveal">
+
+        <p>
+          And the girl eventually became more than just someone he met.
+        </p>
+
+        <p>
+          She became the person hidden inside his quiet thoughts.
+        </p>
+
+        <p>
+          The person behind some of his smiles.
+        </p>
+
+        <p>
+          The person he worried about without always admitting it.
+        </p>
+
+        <p>
+          The person he could never honestly call
+          <em>just another person.</em>
+        </p>
+
+      </div>
+
+
+      <!-- =================================================
+           REVEAL
+      ================================================== -->
+
+      <section class="chapter reveal py-12">
+
+        <p>
+          And now, dear reader...
+        </p>
+
+        <p>
+          Perhaps you've started wondering
+          who these two people are.
+        </p>
+
+        <p>
+          Maybe you've been trying to figure out which tale this is.
+        </p>
+
+        <p>
+          Maybe you thought this was simply another story
+          about two strangers who happened to fall in love.
+        </p>
+
+        <p class="emphasis">
+          But it isn't.
+        </p>
+
+      </section>
+
+
+      <!-- =================================================
+           REVEAL CARD
+      ================================================== -->
+
+      <section
+        class="reveal my-16 rounded-2xl border border-white/10 bg-white/5 p-8 md:p-14 shadow-soft backdrop-blur-sm"
+      >
+
+        <p>
+          The girl in this story...
+        </p>
+
+        <p class="emphasis text-3xl md:text-5xl">
+          is you.
+        </p>
+
+        <p>
+          And the boy...
+        </p>
+
+        <p class="emphasis text-3xl md:text-5xl">
+          is me.
+        </p>
+
+
+        <div
+          class="my-10 h-px bg-white/10"
+        ></div>
+
+
+        <p>
+          The girl is
+          <strong>Peace (she doesn't like the name 😂).</strong>
+        </p>
+
+
+        <p>
+          And the boy is
+          <strong>Godswill.</strong>
+        </p>
+
+        
+
+      </section>
+
+
+      <!-- =================================================
+           CHAPTER
+      ================================================== -->
+
+      <section class="chapter reveal">
+
+        <p>
+          Two people who somehow found each other
+          <strong>in a class</strong>
+          when neither probably expected to find something
+          that would become this meaningful.
+        </p>
+
+        <p>
+          And if you ever wondered why I sometimes seem distant...
+        </p>
+
+        <p>
+          I want you to know something.
+        </p>
+
+        <p class="emphasis">
+          It isn't because I don't love you.
+        </p>
+
+        <p>
+          Sometimes its just on impulse... 
+        </p>
+
+        <p>
+          Sometimes my stoic nature makes me keep things inside
+          when I should probably let you in.
+        </p>
+
+        <p>
+          Sometimes I may not say
+          <em>"I love you"</em>
+          in all the ways you need to hear it.
+        </p>
+
+        <p>
+          But that doesn't mean the feeling isn't there.
+        </p>
+
+        <p class="emphasis">
+          It is.
+        </p>
+
+        <p>
+          And if I could change one thing,
+          it would be learning how to make you feel the love
+          that I sometimes struggle to express.
+        </p>
+
+      </section>
+
+
+      <!-- =================================================
+           CHAPTER
+      ================================================== -->
+
+      <section class="chapter reveal">
+
+        <p>
+          Because the truth is...
+        </p>
+
+        <p class="emphasis">
+          I didn't expect to find you.
+        </p>
+
+        <p>
+          I didn't know a random routine  conversation daily
+          would lead me to someone whose presence
+          would eventually mean this much to me.
+        </p>
+
+        <p>
+          I didn't know that a stranger would become someone
+          I would care about this deeply.
+        </p>
+
+        <p>
+          And I definitely didn't know that one day,
+          I'd be writing a love tale just to reveal
+          that the two characters were
+          <strong>us all along.</strong>
+        </p>
+
+      </section>
+
+
+      <!-- =================================================
+           CHAPTER
+      ================================================== -->
+
+      <section class="chapter reveal">
+
+        <p>
+          So this isn't really a story about a boy and a girl.
+        </p>
+
+        <p>
+          It's about
+          <strong>you and me.</strong>
+        </p>
+
+        <p>
+          About where we started.
+        </p>
+
+        <p>
+          About where we are.
+        </p>
+
+        <p>
+          And hopefully, about all the chapters
+          we haven't written yet.
+        </p>
+
+      </section>
+
+
+      <!-- =================================================
+           CHAPTER
+      ================================================== -->
+
+      <section class="chapter reveal">
+
+        <p>
+          Because I don't want our story to end with:
+        </p>
+
+        <p class="emphasis">
+          “And they lived happily ever after.”
+        </p>
+
+        <p>
+          I want it to continue.
+        </p>
+
+        <p>
+          Through the beautiful days.
+        </p>
+
+        <p>
+          Through the difficult ones.
+        </p>
+
+        <p>
+          Through the misunderstandings.
+        </p>
+
+        <p>
+          Through the laughter.
+        </p>
+
+        <p>
+          Through the growth.
+        </p>
+
+        <p>
+          Through everything life decides to put in front of us.
+        </p>
+
+        <p>
+          I want more chapters.
+        </p>
+
+        <p>
+          More memories.
+        </p>
+
+        <p>
+          More reasons to look back one day and say,
+        </p>
+
+        <p class="emphasis">
+          “Look how far we came.”
+        </p>
+
+      </section>
+
+
+      <!-- =================================================
+           FINAL
+      ================================================== -->
+
+      <section
+        class="chapter reveal pt-10 pb-24"
+      >
+
+        <p>
+          So, baby...
+        </p>
+
+        <p>
+          If you ever question how much you mean to me,
+          remember this little tale.
+        </p>
+
+        <p>
+          Remember that somewhere between two strangers,
+          random conversations, misunderstandings,
+          silence, laughter and everything in between...
+        </p>
+
+        <p class="emphasis">
+          I found you.
+        </p>
+
+        <p>
+          And I wouldn't trade that part of my story for anything.
+        </p>
+
+
+        <div
+          class="mt-16 border-t border-white/10 pt-10"
+        >
+
+          <p
+            class="font-display text-3xl md:text-4xl text-white"
+          >
+            Happy Girlfriend's Day, my love.
+          </p>
+
+          <p
+            class="mt-5 font-sans text-xs tracking-[.25em] uppercase text-white/40"
+          >
+            Cheri
+          </p>
+
+        </div>
+
+      </section>
+
+    </article>
+
+  </main>
+
+
+  <!-- =====================================================
+       MODAL
+  ====================================================== -->
+
+  <div
+    id="modalBackdrop"
+    class="fixed inset-0 z-[70] bg-black/60 backdrop-blur-md flex items-center justify-center p-5"
+    aria-hidden="true"
+  >
+
+    <div
+      class="w-full max-w-lg rounded-2xl p-8 md:p-10 shadow-2xl"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modalTitle"
+    >
+
+      <div
+        class="flex items-start justify-between gap-6"
+      >
+
+        <div>
+
+          <p
+            class="font-sans text-[10px] tracking-[.3em] uppercase text-wine"
+          >
+            A small note
+          </p>
+
+          <h2
+            id="modalTitle"
+            class="mt-3 font-display text-4xl"
+          >
+            For one reader.
+          </h2>
+
+        </div>
+
+
+        <button
+          id="closeModal"
+          class="h-9 w-9 rounded-full border border-white/10 hover:bg-white/10 transition"
+          aria-label="Close"
+        >
+
+          <i
+            class="fa-solid fa-xmark text-xs"
+          ></i>
+
+        </button>
+
+      </div>
+
+
+      <p
+        class="mt-7 font-display text-xl leading-relaxed"
+      >
+        Some stories are fictional.
+        Some are inspired by life.
+        And some are written because one person
+        deserves to know exactly what they mean.
+      </p>
+
+
+      <button
+        id="closeModal2"
+        class="mt-8 w-full border border-white/10 py-3 font-sans text-xs tracking-[.2em] uppercase transition"
+      >
+        Continue reading
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <!-- =====================================================
+       JAVASCRIPT
+  ====================================================== -->
+
+  <script>
+
+    /* =====================================================
+       ELEMENTS
+    ====================================================== */
+
+    const opening =
+      document.getElementById("opening");
+
+    const beginBtn =
+      document.getElementById("beginBtn");
+
+    const storyHeader =
+      document.getElementById("storyHeader");
+
+    const progress =
+      document.getElementById("progress");
+
+    const modal =
+      document.getElementById("modalBackdrop");
+
+    const aboutBtn =
+      document.getElementById("aboutBtn");
+
+    const closeModal =
+      document.getElementById("closeModal");
+
+    const closeModal2 =
+      document.getElementById("closeModal2");
+
+    const musicBtn =
+      document.getElementById("musicBtn");
+
+    const musicIcon =
+      document.getElementById("musicIcon");
+
+
+    /* =====================================================
+       STORY STATE
+    ====================================================== */
+
+    let storyStarted = false;
+
+
+    /* =====================================================
+       BEGIN STORY
+    ====================================================== */
+
+    function beginStory() {
+
+      if (storyStarted) {
+        return;
+      }
+
+
+      storyStarted = true;
+
+
+      /*
+        Unlock the main story.
+      */
+
+      document.body.classList.remove(
+        "story-locked"
+      );
+
+      document.body.classList.add(
+        "story-started"
+      );
+
+
+      /*
+        Fade away opening.
+      */
+
+      opening.classList.add(
+        "hidden"
+      );
+
+
+      /*
+        Activate header.
+      */
+
+      storyHeader.classList.add(
+        "active"
+      );
+
+
+      /*
+        Enable scrolling.
+      */
+
+      document.body.style.overflow =
+        "";
+
+
+      /*
+        Reveal the first story elements
+        after the transition starts.
+      */
+
+      setTimeout(() => {
+
+        document
+          .querySelectorAll(".reveal")
+          .forEach(
+            (element, index) => {
+
+              if (index < 2) {
+
+                setTimeout(
+                  () => {
+
+                    element.classList.add(
+                      "visible"
+                    );
+
+                  },
+
+                  index * 150
+                );
+
+              }
+
+            }
+          );
+
+      }, 500);
+
+
+      /*
+        Animate decorative lines.
+      */
+
+      document
+        .querySelectorAll(".line")
+        .forEach(
+          element => {
+
+            element.classList.add(
+              "visible"
+            );
+
+          }
+        );
+
+    }
+
+
+    beginBtn.addEventListener(
+      "click",
+      beginStory
+    );
+
+
+    /* =====================================================
+       SCROLL TO STORY
+    ====================================================== */
+
+    function scrollToStory() {
+
+      if (!storyStarted) {
+        return;
+      }
+
+
+      document
+        .getElementById("story")
+        .scrollIntoView({
+          behavior: "smooth"
+        });
+
+    }
+
+
+    window.scrollToStory =
+      scrollToStory;
+
+
+    /* =====================================================
+       REVEAL OBSERVER
+    ====================================================== */
+
+    const observer =
+      new IntersectionObserver(
+
+        entries => {
+
+          entries.forEach(
+            entry => {
+
+              if (
+                entry.isIntersecting
+              ) {
+
+                entry.target.classList.add(
+                  "visible"
+                );
+
+                observer.unobserve(
+                  entry.target
+                );
+
+              }
+
+            }
+          );
+
+        },
+
+        {
+          threshold: .12,
+
+          rootMargin:
+            "0px 0px -60px 0px"
+        }
+
+      );
+
+
+    document
+      .querySelectorAll(".reveal")
+      .forEach(
+        element => {
+
+          observer.observe(
+            element
+          );
+
+        }
+      );
+
+
+    /* =====================================================
+       READING PROGRESS
+    ====================================================== */
+
+    window.addEventListener(
+      "scroll",
+
+      () => {
+
+        if (!storyStarted) {
+          return;
+        }
+
+
+        const scrollTop =
+          window.scrollY;
+
+
+        const height =
+          document.documentElement
+            .scrollHeight -
+          window.innerHeight;
+
+
+        const percentage =
+          height > 0
+            ? (
+                scrollTop /
+                height
+              ) * 100
+            : 0;
+
+
+        progress.style.width =
+          `${percentage}%`;
+
+      },
+
+      {
+        passive: true
+      }
+
+    );
+
+
+    /* =====================================================
+       MODAL
+    ====================================================== */
+
+    function openModal() {
+
+      /*
+        Safety check:
+        impossible to open before
+        story has started.
+      */
+
+      if (!storyStarted) {
+        return;
+      }
+
+
+      modal.classList.add(
+        "open"
+      );
+
+
+      modal.setAttribute(
+        "aria-hidden",
+        "false"
+      );
+
+
+      document.body.style.overflow =
+        "hidden";
+
+
+      setTimeout(() => {
+
+        closeModal.focus();
+
+      }, 100);
+
+    }
+
+
+    function hideModal() {
+
+      modal.classList.remove(
+        "open"
+      );
+
+
+      modal.setAttribute(
+        "aria-hidden",
+        "true"
+      );
+
+
+      document.body.style.overflow =
+        "";
+
+    }
+
+
+    aboutBtn.addEventListener(
+      "click",
+      openModal
+    );
+
+
+    closeModal.addEventListener(
+      "click",
+      hideModal
+    );
+
+
+    closeModal2.addEventListener(
+      "click",
+      hideModal
+    );
+
+
+    /*
+      Click outside modal.
+    */
+
+    modal.addEventListener(
+      "click",
+
+      event => {
+
+        if (
+          event.target === modal
+        ) {
+
+          hideModal();
+
+        }
+
+      }
+    );
+
+
+    /* =====================================================
+       ESCAPE
+    ====================================================== */
+
+    document.addEventListener(
+      "keydown",
+
+      event => {
+
+        if (
+          event.key === "Escape" &&
+          storyStarted
+        ) {
+
+          hideModal();
+
+        }
+
+      }
+    );
+
+
+    /* =====================================================
+       AMBIENT SOUND
+    ====================================================== */
+
+    let audioContext = null;
+
+    let masterGain = null;
+
+    let oscillator = null;
+
+    let playing = false;
+
+
+    function toggleAmbient() {
+
+      if (!storyStarted) {
+        return;
+      }
+
+
+      if (!audioContext) {
+
+        audioContext =
+          new (
+            window.AudioContext ||
+            window.webkitAudioContext
+          )();
+
+
+        masterGain =
+          audioContext.createGain();
+
+
+        masterGain.gain.value =
+          .012;
+
+
+        masterGain.connect(
+          audioContext.destination
+        );
+
+
+        oscillator =
+          audioContext.createOscillator();
+
+
+        oscillator.type =
+          "sine";
+
+
+        oscillator.frequency.value =
+          110;
+
+
+        oscillator.connect(
+          masterGain
+        );
+
+
+        oscillator.start();
+
+      }
+
+
+      if (playing) {
+
+        masterGain.gain.setTargetAtTime(
+          0,
+          audioContext.currentTime,
+          .25
+        );
+
+
+        playing = false;
+
+
+        musicIcon.className =
+          "fa-solid fa-volume-xmark text-xs";
+
+      }
+
+      else {
+
+        audioContext.resume();
+
+
+        masterGain.gain.setTargetAtTime(
+          .012,
+          audioContext.currentTime,
+          .25
+        );
+
+
+        playing = true;
+
+
+        musicIcon.className =
+          "fa-solid fa-volume-high text-xs";
+
+      }
+
+    }
+
+
+    musicBtn.addEventListener(
+      "click",
+      toggleAmbient
+    );
+
+
+    /* =====================================================
+       INITIAL STATE
+       
+       This is intentionally applied immediately.
+    ====================================================== */
+
+    document.body.classList.add(
+      "story-locked"
+    );
+
+    storyHeader.classList.remove(
+      "active"
+    );
+
+    modal.classList.remove(
+      "open"
+    );
+
+    modal.setAttribute(
+      "aria-hidden",
+      "true"
+    );
+
+    document.body.style.overflow =
+      "hidden";
+
+  </script>
+
+</body>
+</html>
